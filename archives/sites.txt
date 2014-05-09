@@ -1,2 +1,4 @@
 www.google.com
 www.arglebargle.com
+www.amazon.com
+www.archive.org

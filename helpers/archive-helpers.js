@@ -61,8 +61,12 @@ exports.isURLArchived = function(url, callback){
 
 exports.downloadUrls = function(url, callback){
   httpGet.get(url, function (poo, res) {
-  if (poo) throw poo;
+    if (poo) throw poo;
 
-  console.log(res.code, res.headers, res.buffer.toString());
-});
+    //console.log(res.code, res.headers, res.buffer.toString());
+    console.log('what was the path? ',  exports.paths.archivedSites + '/' + url);
+    fs.writeFile(exports.paths.archivedSites + '/' + url, res.buffer.toString(), function() {
+      callback();
+    });
+  });
 };
