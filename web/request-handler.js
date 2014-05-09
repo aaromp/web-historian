@@ -48,6 +48,7 @@ exports.saveSite = function(req, res) {
           // if it's not in there,
           } else {
             // redirect to loading
+            console.log('found but not archived');
             helper.redirect('/loading.html', res);
           }
         });
@@ -55,6 +56,7 @@ exports.saveSite = function(req, res) {
         // we add it to the list
         archive.addUrlToList(reqURL, function() {
           // have the cron archive the page
+          console.log('super lost');
           helper.redirect('/loading.html', res);
         });
       }

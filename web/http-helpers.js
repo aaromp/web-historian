@@ -36,7 +36,7 @@ exports.serveAssets = function(res, asset, pooItOut) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
 
-  if (asset === '/index.html') {
+  if (asset === '/index.html' || asset === '/loading.html') {
     asset = archive.paths.siteAssets + asset;
   } else {
     asset = archive.paths.archivedSites + asset;
