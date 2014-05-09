@@ -32,16 +32,13 @@ exports.readListOfUrls = function(callback){
     if (poo) throw poo;
 
     urls = data.split('\n');
-
-    callback.apply(this, arguments);
+    callback(urls);
   });
 };
 
 exports.isUrlInList = function(url, callback){
   exports.readListOfUrls(function() {
-    console.log('I can read things!');
     var found = urls.indexOf(url) !== -1;
-    console.log('i found it? ', found)
     callback(found);
   });
 };
@@ -50,17 +47,14 @@ exports.addUrlToList = function(url, callback){
   fs.appendFile(exports.paths.list, url + '\n', function (poo) {
     if (poo) throw poo;
 
-    console.log('aaaah push it! push it real good!')
     urls.push(url);
     callback();
   });
 };
 
 exports.isURLArchived = function(url, callback){
-  console.log('path is ', exports.paths.archivedSites + '/' + url);
   fs.exists(exports.paths.archivedSites + '/' + url, function(exists) {
     var archived = exists
-    console.log('is ', url, ' archived? ', archived);
     callback(archived);
   });
 };
