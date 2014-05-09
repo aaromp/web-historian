@@ -10,9 +10,47 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveAssets = function(res, asset) {
+exports.collectData = function(req, callback) {
+  var data = '';
+
+  req.on('data', function(partial) {
+    data += partial;
+  });
+
+  req.on('end', function() {
+    callback(data);
+  });
+};
+
+exports.return404 = function(res) {
+  res.writeHead(404, headers);
+  res.end('404 - page not found');
+};
+
+exports.redirect = function(url, res) {
+  res.writeHead(302, {location: url});
+  res.end();
+};
+
+exports.serveAssets = function(res, asset, pooItOut) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
+
+  if (asset === '/index.html') {
+    asset = archive.paths.siteAssets + asset;
+  } else {
+    asset = archive.paths.archivedSites + asset;
+  }
+  console.log(asset)
+  fs.readFile(asset, 'utf-8', function(poo, data) {
+    if (poo) {
+      pooItOut();
+    } else {
+      res.writeHead(200, headers);
+      res.end(data);
+    }
+
+  });
 };
 
 // As you progress, keep thinking about what helper functions you can put here!

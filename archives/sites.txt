@@ -1,1 +1,4 @@
 www.google.com
+%2Fwww.google.com
+www.arglebargle.com
+www.example.com
